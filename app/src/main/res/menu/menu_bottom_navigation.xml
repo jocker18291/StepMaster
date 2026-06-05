@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigationWalk"
+        android:title="@string/steps"
+        android:icon="@drawable/baseline_directions_walk_24"/>
+
+    <item android:id="@+id/navigationToday"
+        android:title="@string/today"
+        android:icon="@drawable/ic_calendar"/>
+
+    <item android:id="@+id/navigationSettings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"/>
+
+</menu>

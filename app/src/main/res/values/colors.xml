@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="layerGray">#D6000000</color>
+    <color name="layerSemiGray">#60000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#FDEB9E</color>
+    <color name="mint">#7AE2CF</color>
+    <color name="teal">#077A7D</color>
+    <color name="navy">#06202B</color>
+</resources>
