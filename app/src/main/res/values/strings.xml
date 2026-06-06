@@ -18,4 +18,5 @@
     <string name="distance_traveled">Distance Traveled</string>
     <string name="calories">Calories</string>
     <string name="logout">Logout</string>
+    <string name="check_activity">Check Activity</string>
 </resources>

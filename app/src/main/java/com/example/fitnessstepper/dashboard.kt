@@ -35,6 +35,7 @@ class dashboard : AppCompatActivity(), SensorEventListener {
 
         DBConnect = dbConnect(this)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val email = intent.getStringExtra("USER_EMAIL")
 
         val bottomPanel = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomPanel)
 
@@ -45,6 +46,7 @@ class dashboard : AppCompatActivity(), SensorEventListener {
                 }
                 R.id.navigationToday -> {
                     val intent = Intent(this, Calendar::class.java)
+                    intent.putExtra("USER_EMAIL", email)
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
                     startActivity(intent, options.toBundle())
                     finish()
@@ -52,6 +54,7 @@ class dashboard : AppCompatActivity(), SensorEventListener {
                 }
                 R.id.navigationSettings -> {
                     val intent = Intent(this, Settings::class.java)
+                    intent.putExtra("USER_EMAIL", email)
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
                     startActivity(intent, options.toBundle())
                     finish()

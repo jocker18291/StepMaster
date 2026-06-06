@@ -16,6 +16,7 @@ class Settings : AppCompatActivity() {
         val bottomPanel = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomPanel)
         bottomPanel.selectedItemId = R.id.navigationSettings
         val logout = findViewById<androidx.cardview.widget.CardView>(R.id.logoutCard)
+        val email = intent.getStringExtra("USER_EMAIL")
 
         logout.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -27,6 +28,7 @@ class Settings : AppCompatActivity() {
             when(item.itemId) {
                 R.id.navigationWalk -> {
                     val intent = Intent(this, dashboard::class.java)
+                    intent.putExtra("USER_EMAIL", email)
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
                     startActivity(intent, options.toBundle())
                     finish()
@@ -34,6 +36,7 @@ class Settings : AppCompatActivity() {
                 }
                 R.id.navigationToday -> {
                     val intent = Intent(this, Calendar::class.java)
+                    intent.putExtra("USER_EMAIL", email)
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
                     startActivity(intent, options.toBundle())
                     finish()
