@@ -17,4 +17,5 @@
     <string name="search">Search</string>
     <string name="distance_traveled">Distance Traveled</string>
     <string name="calories">Calories</string>
+    <string name="logout">Logout</string>
 </resources>

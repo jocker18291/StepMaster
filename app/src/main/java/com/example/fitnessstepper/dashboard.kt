@@ -1,6 +1,7 @@
 package com.example.fitnessstepper
 
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -12,8 +13,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.jvm.java
 
 class dashboard : AppCompatActivity(), SensorEventListener {
 
@@ -21,7 +24,6 @@ class dashboard : AppCompatActivity(), SensorEventListener {
 
     private var running = false
     private var totalSteps = 0f
-    private var previousTotalSteps = 0
     private lateinit var DBConnect: dbConnect
 
 
@@ -33,6 +35,32 @@ class dashboard : AppCompatActivity(), SensorEventListener {
 
         DBConnect = dbConnect(this)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        val bottomPanel = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomPanel)
+
+        bottomPanel.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.navigationWalk -> {
+                    true
+                }
+                R.id.navigationToday -> {
+                    val intent = Intent(this, Calendar::class.java)
+                    val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
+                    startActivity(intent, options.toBundle())
+                    finish()
+                    true
+                }
+                R.id.navigationSettings -> {
+                    val intent = Intent(this, Settings::class.java)
+                    val options = ActivityOptionsCompat.makeCustomAnimation(this, 0, 0)
+                    startActivity(intent, options.toBundle())
+                    finish()
+                    true
+                }
+                else -> false
+            }
+
+        }
 
     }
 
