@@ -4,12 +4,10 @@ public class Users {
 
     private String emailAddress;
     private String Password;
-    private int Steps;
 
     public Users(String emailAddress, String password) {
         this.emailAddress = emailAddress;
         Password = password;
-        Steps = 0;
     }
 
     public String getEmailAddress() {
@@ -28,11 +26,4 @@ public class Users {
         Password = password;
     }
 
-    public int getSteps() {
-        return Steps;
-    }
-
-    public void setSteps(int steps) {
-        Steps = steps;
-    }
 }

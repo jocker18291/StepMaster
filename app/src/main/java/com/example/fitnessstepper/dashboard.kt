@@ -68,6 +68,15 @@ class dashboard : AppCompatActivity(), SensorEventListener {
         super.onResume()
         running = true
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        val email = intent.getStringExtra("USER_EMAIL") ?: ""
+        currentDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+        stepsToday = DBConnect.getSteps(email, currentDate)
+
+        currentSteps = stepsToday
+
+        updateUI()
+
+        firstValueSteps = null
 
         if(stepSensor == null) {
             Toast.makeText(this, "No sensor detected.", Toast.LENGTH_SHORT).show()
@@ -81,9 +90,10 @@ class dashboard : AppCompatActivity(), SensorEventListener {
 
     private var firstValueSteps: Float? = null
     private var currentSteps = 0
+    private var stepsToday = 0
+    private var currentDate = ""
 
     override fun onSensorChanged(event: SensorEvent?) {
-        val email = intent.getStringExtra("USER_EMAIL")
         if(running && event != null) {
             totalSteps = event.values[0]
 
@@ -91,15 +101,11 @@ class dashboard : AppCompatActivity(), SensorEventListener {
                 firstValueSteps = totalSteps
             }
 
-            currentSteps = (totalSteps - (firstValueSteps ?: 0f)).toInt()
+            val sessionSteps = (totalSteps - (firstValueSteps ?: 0f)).toInt()
 
-            val caloriesBurned = currentSteps * 0.045
-            val formattedCalories = String.format(java.util.Locale.US, "%.1f", caloriesBurned)
-            val distanceTraveled = currentSteps * 0.725
-            val formattedDistance = String.format(java.util.Locale.US, "%.1f", distanceTraveled)
-            findViewById<TextView>(R.id.stepsTaken).text = "${currentSteps}/6000"
-            findViewById<TextView>(R.id.calories).text = "$formattedCalories kcal"
-            findViewById<TextView>(R.id.distance).text = "$formattedDistance m"
+            currentSteps = stepsToday + sessionSteps
+
+            updateUI()
         }
     }
 
@@ -108,6 +114,16 @@ class dashboard : AppCompatActivity(), SensorEventListener {
         running = false
 
         val email = intent.getStringExtra("USER_EMAIL")
-        DBConnect.setSteps(email, currentSteps)
+        DBConnect.setSteps(email, currentDate, currentSteps)
+    }
+
+    private fun updateUI() {
+        val caloriesBurned = currentSteps * 0.045
+        val formattedCalories = String.format(java.util.Locale.US, "%.1f", caloriesBurned)
+        val distanceTraveled = currentSteps * 0.725
+        val formattedDistance = String.format(java.util.Locale.US, "%.1f", distanceTraveled)
+        findViewById<TextView>(R.id.stepsTaken).text = "${currentSteps}/6000"
+        findViewById<TextView>(R.id.calories).text = "$formattedCalories kcal"
+        findViewById<TextView>(R.id.distance).text = "$formattedDistance m"
     }
 }
